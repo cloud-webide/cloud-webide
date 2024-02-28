@@ -1,27 +1,8 @@
----
-# https://vitepress.dev/reference/default-theme-home-page
-layout: home
+# cloud-webide.github.io
 
-hero:
-  name: "VS Code support browser version list."
-  text: "Extract data from github."
-  # tagline: My great project tagline
-#   actions:
-#     - theme: brand
-#       text: Markdown Examples
-#       link: /markdown-examples
-#     - theme: alt
-#       text: API Examples
-#       link: /api-examples
+Tools to automatically collect the minimum supported browser version of [vscode.dev](https://vscode.dev)
 
-# features:
-#   - title: Feature A
-#     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-#   - title: Feature B
-#     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-#   - title: Feature C
-#     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
----
+## Current Latest Version
 
 <!-- VSCODE_VERSION_START -->
 

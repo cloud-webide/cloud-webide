@@ -1,18 +1,24 @@
 {
-  "name": "cloud-webide",
+  "name": "cloud-webide.github.io",
   "version": "1.0.0",
-  "description": "",
+  "description": "VS Code support browser version list",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vitepress dev",
     "dev-utils": "esno ./utils/index.ts",
     "build": "vitepress build",
     "preview": "vitepress preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "vscode",
+    "vscode.dev",
+    "chrome",
+    "firefox",
+    "safari",
+    "playwright"
+  ],
+  "author": "yiliang114 <1204183885@qq.com>",
+  "license": "MIT",
   "devDependencies": {
     "esno": "^4.0.0",
     "octokit": "^3.1.2",
