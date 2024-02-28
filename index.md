@@ -87,10 +87,45 @@ hero:
 | WebKit <!-- GEN:webkit-version -->16.4<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | Firefox <!-- GEN:firefox-version -->111.0<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
-### 1.79-insiders
+### 1.78
  |          | Linux | macOS | Windows |
 |   :---   | :---: | :---: | :---:   |
 | Chromium <!-- GEN:chromium-version -->112.0.5615.29<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | WebKit <!-- GEN:webkit-version -->16.4<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | Firefox <!-- GEN:firefox-version -->111.0<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+
+### 1.77
+ |          | Linux | macOS | Windows |
+|   :---   | :---: | :---: | :---:   |
+| Chromium <!-- GEN:chromium-version -->107.0.5304.18<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| WebKit <!-- GEN:webkit-version -->16.0<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Firefox <!-- GEN:firefox-version -->105.0.1<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+
+### 1.76
+ |          | Linux | macOS | Windows |
+|   :---   | :---: | :---: | :---:   |
+| Chromium <!-- GEN:chromium-version -->107.0.5304.18<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| WebKit <!-- GEN:webkit-version -->16.0<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Firefox <!-- GEN:firefox-version -->105.0.1<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+
+### 1.75
+ |          | Linux | macOS | Windows |
+|   :---   | :---: | :---: | :---:   |
+| Chromium <!-- GEN:chromium-version -->107.0.5304.18<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| WebKit <!-- GEN:webkit-version -->16.0<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Firefox <!-- GEN:firefox-version -->105.0.1<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+
+### 1.74
+ |          | Linux | macOS | Windows |
+|   :---   | :---: | :---: | :---:   |
+| Chromium <!-- GEN:chromium-version -->107.0.5304.18<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| WebKit <!-- GEN:webkit-version -->16.0<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Firefox <!-- GEN:firefox-version -->105.0.1<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+
+### 1.73
+ |          | Linux | macOS | Windows |
+|   :---   | :---: | :---: | :---:   |
+| Chromium <!-- GEN:chromium-version -->107.0.5304.18<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| WebKit <!-- GEN:webkit-version -->16.0<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Firefox <!-- GEN:firefox-version -->105.0.1<!-- GEN:stop --> | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 <!-- VSCODE_VERSION_END -->

@@ -3,6 +3,7 @@
 
 import fs from "fs";
 import path from "path";
+import semver from "semver";
 import { repoInfo } from "./config";
 import { getReleaseBranches } from "./branch";
 import { getDependencyVersion } from "./npmVersion";
@@ -13,13 +14,14 @@ async function main() {
   // 1. 获取 vscode oss 所有形如 release/xxx 相关的分支列表。
 
   let branches;
+  // TODO: 后续优化
   if (!isTest) {
     branches = await getReleaseBranches(repoInfo.owner, repoInfo.repo);
   } else {
     branches = require(path.resolve(__dirname, "../data/branches.json"))?.data;
   }
 
-  // 读取 data/release 文件夹，如果已经存在的 xxx.xx.xx.json 就剔除对应的 branch.
+  // 读取 data/release 文件夹，如果已经存在的 xxx.xx.xx.md 就剔除对应的 branch.
   const files = await fs.promises.readdir(
     path.resolve(__dirname, "../data/release")
   );
@@ -39,14 +41,20 @@ async function main() {
 
   branches = branches
     .reverse()
-    .filter((item) => !cache[item.replace("release/", "")])
-    .slice(0, 2);
+    .filter((item) => !cache[item.replace("release/", "")]);
+  //  TODO: 暂时去除 -insiders. 版本
+  // .filter((item) => !!item.match(/\d+.\d+$/));
+
+  console.log("branches", branches);
+
+  if (Object.keys(cache).length > 10) {
+    console.log("版本信息暂时足够了。");
+    branches = [];
+  }
 
   // console.log("已有数据：", cache);
   // console.log("已有数据：", files);
   console.log("继续请求：", branches);
-
-  // return;
 
   // 去除 release/ 前缀，通过正则剔除
   const _branches = branches.map((item) => item.replace("release/", ""));
@@ -68,8 +76,6 @@ async function main() {
 
   console.log("获取 vscode 安装的 playwright 版本：", data);
 
-  return;
-
   // 3. 获取对应 playwright 版本的支持浏览器信息。
   const browserData = await Promise.all(
     data.map(async (version, index) => {
@@ -81,7 +87,7 @@ async function main() {
       const release = await getTableDataFromMarkdown(version!);
       // 写入data 文件中存起来
       await fs.promises.writeFile(
-        `./data/release/${codeVersion}.json`,
+        `./data/release/${codeVersion}.md`,
         release.data,
         "utf-8"
       );
@@ -93,14 +99,14 @@ async function main() {
   console.log(browserData);
 
   // 4. 组装为新的结果 markdown
-
-  const res = browserData
-    .map((item, index) => {
-      // if (cache[_branches[index]]) {
-      //   return "";
-      // }
-      // cache[_branches[index]] = true;
-      return `### ${_branches[index]}\n ${item}`;
+  const res = Object.keys(cache)
+    // TODO: 只留了正式版本
+    .filter((key) => !!key.match(/\d+.\d+$/))
+    // FIXME: 都是大版本号，没有 patch 位
+    .sort((a, b) => (semver.gt(`${a}.0`, `${b}.0`) ? -1 : 1))
+    .map((key, index) => {
+      const item = cache[key] || browserData[index];
+      return `### ${key}\n ${item}`;
     })
     .filter(Boolean)
     .join("\n\n");
