@@ -10,6 +10,7 @@ import { getDependencyVersion } from "./npmVersion";
 import { getTableDataFromMarkdown } from "./markdown";
 
 const isTest = true;
+const FILES = ["index.md", "README.md"];
 async function main() {
   // 1. 获取 vscode oss 所有形如 release/xxx 相关的分支列表。
 
@@ -42,8 +43,6 @@ async function main() {
   branches = branches
     .reverse()
     .filter((item) => !cache[item.replace("release/", "")]);
-  //  TODO: 暂时去除 -insiders. 版本
-  // .filter((item) => !!item.match(/\d+.\d+$/));
 
   console.log("branches", branches);
 
@@ -100,10 +99,7 @@ async function main() {
 
   // 4. 组装为新的结果 markdown
   const res = Object.keys(cache)
-    // TODO: 只留了正式版本
-    .filter((key) => !!key.match(/\d+.\d+$/))
-    // FIXME: 都是大版本号，没有 patch 位
-    .sort((a, b) => (semver.gt(`${a}.0`, `${b}.0`) ? -1 : 1))
+    .sort((a, b) => (semver.gt(semver.coerce(a), semver.coerce(b)) ? -1 : 1))
     .map((key, index) => {
       const item = cache[key] || browserData[index];
       return `### ${key}\n ${item}`;
@@ -113,33 +109,35 @@ async function main() {
 
   console.log(res);
 
-  // 5. 写入到文件
-  // 读取 index.md 文件并替换其中的 <!-- VSCODE_VERSION_START --> 和 <!-- VSCODE_VERSION_END --> 中间部分内容
-  const oldContent = (await fs.promises.readFile("./index.md", "utf-8")).split(
-    "\n"
-  );
+  const updateMD = async (file) => {
+    // 5. 写入到文件
+    // 读取 file 文件并替换其中的 <!-- VSCODE_VERSION_START --> 和 <!-- VSCODE_VERSION_END --> 中间部分内容
+    const oldContent = (await fs.promises.readFile(file, "utf-8")).split("\n");
 
-  console.log(oldContent);
-  const startIndex = oldContent.findIndex(
-    (line) => line.indexOf("<!-- VSCODE_VERSION_START -->") > -1
-  );
-  const endIndex = oldContent.findIndex(
-    (line) => line.indexOf("<!-- VSCODE_VERSION_END -->") > -1
-  );
+    console.log(oldContent);
+    const startIndex = oldContent.findIndex(
+      (line) => line.indexOf("<!-- VSCODE_VERSION_START -->") > -1
+    );
+    const endIndex = oldContent.findIndex(
+      (line) => line.indexOf("<!-- VSCODE_VERSION_END -->") > -1
+    );
 
-  console.log(startIndex, endIndex);
+    console.log(startIndex, endIndex);
 
-  const content =
-    oldContent.slice(0, startIndex + 1).join("\n") +
-    "\n" +
-    res +
-    "\n" +
-    oldContent.slice(endIndex).join("\n");
+    const content =
+      oldContent.slice(0, startIndex + 1).join("\n") +
+      "\n" +
+      res +
+      "\n" +
+      oldContent.slice(endIndex).join("\n");
 
-  console.log(content);
+    console.log(content);
 
-  // 替换掉 index.md 文件中的 <!-- VSCODE_VERSION_START --> 和 <!-- VSCODE_VERSION_END --> 中间部分内容
-  await fs.promises.writeFile("./index.md", content, "utf-8");
+    // 替换掉 file 文件中的 <!-- VSCODE_VERSION_START --> 和 <!-- VSCODE_VERSION_END --> 中间部分内容
+    await fs.promises.writeFile(file, content, "utf-8");
+  };
+
+  await Promise.all(FILES.map(updateMD));
 }
 
 main();

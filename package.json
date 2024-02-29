@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vitepress dev",
     "dev-utils": "esno ./utils/index.ts",
-    "build": "vitepress build",
+    "build": "yarn run dev-utils && vitepress build",
     "preview": "vitepress preview"
   },
   "keywords": [
