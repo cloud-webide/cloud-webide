@@ -4,7 +4,7 @@
   "description": "Tools to automatically collect the minimum supported browser version of VS Code Web (https://vscode.dev).",
   "main": "index.js",
   "scripts": {
-    "dev": "esno ./src/index.ts --watch",
+    "dev": "esno ./src/index.ts",
     "build": "esno ./src/index.ts && vitepress build",
     "dev-docs": "vitepress dev",
     "preview": "vitepress preview"

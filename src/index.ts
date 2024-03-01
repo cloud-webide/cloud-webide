@@ -29,7 +29,7 @@ async function main() {
 
   const cache = {};
   // 读取文件
-  await Promise.all(
+  await Promise.allSettled(
     files.map(async (name) => {
       const data = await fs.promises.readFile(
         path.resolve(__dirname, "../data/release", name),
@@ -46,7 +46,7 @@ async function main() {
 
   console.log("branches", branches);
 
-  if (Object.keys(cache).length > 10) {
+  if (Object.keys(cache).length > 20) {
     console.log("版本信息暂时足够了。");
     branches = [];
   }
@@ -63,21 +63,26 @@ async function main() {
   // 2. 获取这些版本的 vscode 中依赖的 playwright 版本。
   const data = await Promise.all(
     branches.map(async (branch) => {
-      const version = await getDependencyVersion(
-        repoInfo.owner,
-        repoInfo.repo,
-        branch,
-        "@playwright/test"
-      );
-      return version;
+      try {
+        const version = await getDependencyVersion(
+          repoInfo.owner,
+          repoInfo.repo,
+          branch,
+          "@playwright/test"
+        );
+        return version;
+      } catch (error) {
+        console.error(error);
+        return "";
+      }
     })
   );
 
-  console.log("获取 vscode 安装的 playwright 版本：", data);
+  console.log("获取 vscode 安装的 playwright 版本：", data.filter(Boolean));
 
   // 3. 获取对应 playwright 版本的支持浏览器信息。
   const browserData = await Promise.all(
-    data.map(async (version, index) => {
+    data.filter(Boolean).map(async (version, index) => {
       const codeVersion = _branches[index];
       if (cache[codeVersion]) {
         return cache[codeVersion];
@@ -95,7 +100,7 @@ async function main() {
     })
   );
 
-  console.log(browserData);
+  console.log(browserData.filter(Boolean));
 
   // 4. 组装为新的结果 markdown
   const res = Object.keys(cache)
@@ -137,7 +142,7 @@ async function main() {
     await fs.promises.writeFile(file, content, "utf-8");
   };
 
-  await Promise.all(FILES.map(updateMD));
+  await Promise.allSettled(FILES.map(updateMD));
 }
 
 main();
