@@ -1,3 +1,8 @@
+// {
+//   "1.87": "https://github.com/microsoft/playwright/blob/v1.41.2/README.md",
+//   "1.86": "https://github.com/microsoft/playwright/blob/v1.41.2/README.md"
+// }
+
 // 2. 获取对应版本的 playwright-core 版本
 export async function getTableDataFromMarkdown(playwrightVersion: string) {
   const url = `https://github.com/microsoft/playwright/blob/v${playwrightVersion}/README.md?plain=1`;

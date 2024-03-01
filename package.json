@@ -1,16 +1,17 @@
 {
   "name": "cloud-webide.github.io",
   "version": "1.0.0",
-  "description": "VS Code support browser version list",
+  "description": "Tools to automatically collect the minimum supported browser version of VS Code Web (https://vscode.dev).",
   "main": "index.js",
   "scripts": {
-    "dev": "vitepress dev",
-    "dev-utils": "esno ./utils/index.ts",
-    "build": "yarn run dev-utils && vitepress build",
+    "dev": "esno ./src/index.ts --watch",
+    "build": "esno ./src/index.ts && vitepress build",
+    "dev-docs": "vitepress dev",
     "preview": "vitepress preview"
   },
   "keywords": [
     "vscode",
+    "VS Code Web",
     "vscode.dev",
     "chrome",
     "firefox",
