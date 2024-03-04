@@ -25,7 +25,7 @@ hero:
 
 ![image](https://github.com/microsoft/vscode/assets/11473889/19a753da-8f2a-499b-8bef-12fbe39daad5)
 
-VS Code 官方给了 A good indication: 通过 VS Code 依赖的 playwright 查看兼容的浏览器版本。
+VS Code 官方给了 [A good indication](https://github.com/microsoft/vscode/issues/195552): 通过 VS Code 依赖的 playwright 查看兼容的浏览器版本。
 
 于是就有了该 Side Project: 用脚本自动去扫 vscode 依赖的 playwright 版本 => 找 playwright 支持的浏览器信息 => 再汇总到一个地方，以后 vscode 每升级一个版本就自动去抓取一次信息。
 
